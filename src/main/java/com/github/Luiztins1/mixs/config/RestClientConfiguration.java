@@ -1,18 +1,22 @@
 package com.github.Luiztins1.mixs.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestClient;
 
 @Configuration
-@RequiredArgsConstructor
 public class RestClientConfiguration {
-    
-    private final String url;
+
+    @Value("${app.discogs.base-url}")
+    private String baseUrl;
 
     @Bean
     public RestClient restClientProvider(){
-        return null;
+        return RestClient
+                .builder()
+                .baseUrl(baseUrl)
+                .build();
     }
 }
