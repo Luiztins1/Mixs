@@ -32,11 +32,8 @@ public class Album {
             joinColumns = @JoinColumn(name = "album_id"),
             inverseJoinColumns = @JoinColumn(name = "artist_id")
     )
-    private Set<Artist> artists;
-
-    @OneToMany(mappedBy = "album")
-    private List<Artist> artistList;
-
+    private Set<Artist> artist;
+    
     @Column(name = "country", nullable = false)
     private String country;
 
