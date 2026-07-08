@@ -1,12 +1,15 @@
 package com.github.Luiztins1.mixs.controller.dto;
 
-import java.time.LocalDate;
+import com.github.Luiztins1.mixs.model.entity.Artist;
 
-public record AlbumDTO(
+import java.time.LocalDate;
+import java.util.Set;
+
+public record AlbumResponseDTO(
         Integer id,
         String name,
         LocalDate releaseDate,
-        Integer artist,
+        Set<Artist> artist,
         String country,
         String description) {
 }

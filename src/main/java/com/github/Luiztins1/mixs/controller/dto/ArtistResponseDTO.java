@@ -1,6 +1,6 @@
 package com.github.Luiztins1.mixs.controller.dto;
 
-public record ArtistDTO(
+public record ArtistResponseDTO(
         Integer id,
         String name,
         String dateOfBirth,
