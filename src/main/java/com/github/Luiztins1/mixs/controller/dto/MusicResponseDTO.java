@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 public record MusicResponseDTO(
         Integer id,
-        String name,
+        String nameSong,
         String band,
         LocalDate releaseDate) {
 }
