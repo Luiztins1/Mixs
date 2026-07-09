@@ -12,11 +12,16 @@ public class RestClientConfiguration {
     @Value("${app.discogs.base-url}")
     private String baseUrl;
 
+    @Value("${app.discogs.base-url}")
+    private String token;
+
     @Bean
     public RestClient restClientProvider(){
         return RestClient
                 .builder()
                 .baseUrl(baseUrl)
+                .defaultHeader(token)
+                .defaultHeader("User-Agent", "MixsApp/1.0.0-LuizGabriel")
                 .build();
     }
 }

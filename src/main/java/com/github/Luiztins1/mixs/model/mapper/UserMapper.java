@@ -21,7 +21,7 @@ public class UserMapper {
 
         user.setId(userResponseDTO.id());
         user.setName(userResponseDTO.name());
-        
+
         return user;
     }
 }
