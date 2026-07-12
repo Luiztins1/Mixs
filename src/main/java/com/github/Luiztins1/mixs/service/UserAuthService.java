@@ -34,6 +34,7 @@ public class UserAuthService {
         return userAuthRepository.findAll();
     }
 
+    @Transactional
     public Optional<UserAuth> updateUserAuth(UUID id, UserAuthResponseDTO userAuthResponseDTO) {
         return userAuthRepository.findById(id)
                 .map(userAuth -> {
@@ -46,20 +47,24 @@ public class UserAuthService {
 
     }
 
+    @Transactional
     public void cancelUserAuth(String login) {
-        var userAuthValidate = userAuthRepository.findByLogin(login);
-        if (userAuthValidate == null) throw new UsernameNotFoundException("Usuário não encontrado.");
+        var userAuthValidate = userAuthRepository.findByLogin(login)
+                        .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
+
         userAuthRepository.deleteByLogin(userAuthValidate.getLogin());
     }
 
     public Optional<UserAuth> findById(UUID id) {
         var userAuthValidate = userAuthRepository.findById(id);
 
-        return Optional.of(userAuthValidate).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
+        return Optional.of(userAuthValidate)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
     }
 
-    public UserAuth findByLogin(String login) {
+    public Optional<UserAuth> findByLogin(String login) {
         var userAuthValidate = userAuthRepository.findByLogin(login);
-        return Optional.of(userAuthValidate).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
+        return Optional.of(userAuthValidate)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
     }
 }
