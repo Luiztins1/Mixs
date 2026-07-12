@@ -3,13 +3,13 @@ spring:
     name: mixs
   datasource:
     url: jdbc:postgresql://localhost:5433/mixs
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    username: ${DB_USERNAME:seu_usuario_aqui}
+    password: ${DB_PASSWORD:sua_senha_aqui}
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
 
   security:

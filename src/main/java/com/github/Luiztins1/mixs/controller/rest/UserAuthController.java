@@ -4,6 +4,7 @@ import com.github.Luiztins1.mixs.controller.dto.UserAuthResponseDTO;
 import com.github.Luiztins1.mixs.model.entity.UserAuth;
 import com.github.Luiztins1.mixs.model.mapper.UserAuthMapper;
 import com.github.Luiztins1.mixs.service.UserAuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,7 +25,7 @@ public class UserAuthController {
 
     @PostMapping
     @PreAuthorize("hasRole('MANAGER')")
-    public ResponseEntity<UserAuthResponseDTO> registerUserAuth(@RequestBody UserAuthResponseDTO userAuthResponseDTO) {
+    public ResponseEntity<UserAuthResponseDTO> registerUserAuth(@RequestBody @Valid UserAuthResponseDTO userAuthResponseDTO) {
         var userAuth = UserAuthMapper.toEntity(userAuthResponseDTO);
 
         URI location = ServletUriComponentsBuilder
@@ -51,7 +52,7 @@ public class UserAuthController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyRole('MANAGER', USER)")
-    public ResponseEntity<UserAuthResponseDTO> updateUserAuth(@PathVariable UUID id, @RequestBody UserAuthResponseDTO userAuthResponseDTO) {
+    public ResponseEntity<UserAuthResponseDTO> updateUserAuth(@PathVariable UUID id, @RequestBody @Valid UserAuthResponseDTO userAuthResponseDTO) {
         Optional<UserAuth> userAuthDTOOptional = userAuthService.updateUserAuth(id, userAuthResponseDTO);
 
         if (userAuthDTOOptional.isPresent()) return ResponseEntity.ok().build();
@@ -61,7 +62,7 @@ public class UserAuthController {
 
     @DeleteMapping("/{login}")
     @PreAuthorize("hasAnyRole('MANAGER', 'USER')")
-    public ResponseEntity<Void> cancelUserAuth(@PathVariable String login) {
+    public ResponseEntity<Void> cancelUserAuth(@PathVariable @Valid String login) {
         userAuthService.cancelUserAuth(login);
         return ResponseEntity.noContent().build();
     }
