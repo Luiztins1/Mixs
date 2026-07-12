@@ -6,5 +6,6 @@ import java.util.Set;
 
 public record FolderResponseDTO(
         Integer id,
+        String folderName,
         Set<Album> album) {
 }

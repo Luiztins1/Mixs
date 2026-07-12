@@ -26,4 +26,7 @@ public class Folder {
             inverseJoinColumns = @JoinColumn(name = "album_id")
     )
     private Set<Album> album;
+
+    @Column(name = "folder_name", nullable = false)
+    private String folderName;
 }
