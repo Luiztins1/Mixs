@@ -22,6 +22,7 @@ public class SecurityConfiguration {
                     authorize.requestMatchers("/login").permitAll();
                     authorize.anyRequest().permitAll();
                 })
+                .oauth2Login(Customizer.withDefaults())
                 .build();
     }
 
