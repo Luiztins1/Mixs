@@ -10,6 +10,7 @@ public class FolderMapper {
 
         return new FolderResponseDTO(
                 folder.getId(),
+                folder.getFolderName(),
                 folder.getAlbum()
         );
     }

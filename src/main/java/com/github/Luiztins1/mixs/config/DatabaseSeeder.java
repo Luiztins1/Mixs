@@ -21,7 +21,7 @@ public class DatabaseSeeder {
                 userAuth.setLogin("manager");
                 userAuth.setPassword("manager123");
                 userAuth.setRoles(List.of("MANAGER"));
-                
+
                 userAuthRepository.save(userAuth);
             }
         };
