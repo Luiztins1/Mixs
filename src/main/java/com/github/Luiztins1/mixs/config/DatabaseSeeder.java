@@ -19,7 +19,7 @@ public class DatabaseSeeder {
             if(userAuthRepository.count() == 0){
                 var userAuth = new UserAuth();
                 userAuth.setLogin("manager");
-                userAuth.setPassword("manager123");
+                userAuth.setPassword(passwordEncoder.encode("manager123"));
                 userAuth.setRoles(List.of("MANAGER"));
 
                 userAuthRepository.save(userAuth);
