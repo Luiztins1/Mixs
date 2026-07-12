@@ -1,4 +1,5 @@
 package com.github.Luiztins1.mixs.controller.dto;
 
-public record DiscogsResultMusicDTO(String track) {
+public record DiscogsResultMusicDTO(
+        String title) {
 }

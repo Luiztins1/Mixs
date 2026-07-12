@@ -17,15 +17,21 @@ public class ArtistService {
     private final ArtistRepository artistRepository;
     private final RestClient restClient;
 
-    public List<String> searchNameArtist(String name){
+    public List<String> searchNameArtist(String title){
         var result = restClient.get()
-                .uri("/database/search?q={query}&type=artist", name)
+                .uri(uriBuilder -> uriBuilder
+                        .path("/database/search")
+                        .queryParam("title", title)
+                        .queryParam("type", "artist")
+                        .build())
                 .retrieve()
                 .body(DiscogsSearchArtistResponseDTO.class);
 
         return result.results()
                 .stream()
-                .map(DiscogsResultArtistDTO::name)
+                .map(DiscogsResultArtistDTO::title)
+                .distinct()
+                .sorted()
                 .toList();
 
     }}

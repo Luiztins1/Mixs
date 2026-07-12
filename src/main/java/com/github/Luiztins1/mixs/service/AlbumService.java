@@ -16,17 +16,22 @@ public class AlbumService {
     private final AlbumRepository albumRepository;
     private final RestClient restClient;
 
-    public List<String> searchAlbum(String name){
+    public List<String> searchNameAlbum(String name){
 
         var response = restClient.get()
-                    .uri("/database/search?q={query}&type=release", name)
-                    .header("User-Agent", "MixsApp/1.0")
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/database/search")
+                            .queryParam("q", name)
+                            .queryParam("type", "release")
+                            .build())
                     .retrieve()
                     .body(DiscogsSearchAlbumResponseDTO.class);
 
         return response.results()
                 .stream()
                 .map(DiscogsResultAlbumDTO::title)
+                .distinct()
+                .sorted()
                 .toList();
     }
 }

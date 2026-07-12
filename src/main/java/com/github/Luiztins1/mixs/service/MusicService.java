@@ -20,13 +20,20 @@ public class MusicService {
 
     public List<String> searchNameMusic(String track){
         var result = restClient.get()
-                .uri("/database/search?q={query}&type=track", track)
+                .uri(uriBuilder -> uriBuilder
+                        .path("/database/search")
+                        .queryParam("q", track)
+                        .queryParam("type", "release")
+                        .build())
+
                 .retrieve()
                 .body(DiscogsSearchMusicResponseDTO.class);
 
         return result.results()
                 .stream()
-                .map(DiscogsResultMusicDTO::track)
+                .map(DiscogsResultMusicDTO::title)
+                .distinct()
+                .sorted()
                 .toList();
 
     }
