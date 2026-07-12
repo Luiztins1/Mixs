@@ -22,7 +22,7 @@ public class UserAuthService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public UserAuth registerUserAuth(UserAuthResponseDTO userAuthResponseDTO){
+    public UserAuth registerUserAuth(UserAuthResponseDTO userAuthResponseDTO) {
         var user = UserAuthMapper.toEntity(userAuthResponseDTO);
         var password = user.getPassword();
         user.setPassword(passwordEncoder.encode(password));
@@ -30,35 +30,36 @@ public class UserAuthService {
         return userAuthRepository.save(user);
     }
 
-    public List<UserAuth> findAll(){
+    public List<UserAuth> findAll() {
         return userAuthRepository.findAll();
     }
 
-    public Optional<UserAuth> updateUserAuth(UUID id, UserAuthResponseDTO userAuthResponseDTO){
+    public Optional<UserAuth> updateUserAuth(UUID id, UserAuthResponseDTO userAuthResponseDTO) {
         return userAuthRepository.findById(id)
                 .map(userAuth -> {
                     userAuth.setPassword(userAuthResponseDTO.password());
 
-                    if(userAuth.getId() == null) throw new UsernameNotFoundException("Usuário não encontado.");
+                    if (userAuth.getId() == null) throw new UsernameNotFoundException("Usuário não encontado.");
 
                     return userAuthRepository.save(userAuth);
                 });
 
     }
 
-    public void cancelUserAuth(String login){
+    public void cancelUserAuth(String login) {
         var userAuthValidate = userAuthRepository.findByLogin(login);
-        if(userAuthValidate == null) throw new UsernameNotFoundException("Usuário não encontrado.");
+        if (userAuthValidate == null) throw new UsernameNotFoundException("Usuário não encontrado.");
         userAuthRepository.deleteByLogin(userAuthValidate.getLogin());
     }
 
-    public Optional<UserAuth> findById(UUID id){
+    public Optional<UserAuth> findById(UUID id) {
         var userAuthValidate = userAuthRepository.findById(id);
 
         return Optional.of(userAuthValidate).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
     }
 
-    public Optional<UserAuth> findByLogin(String login){
+    public UserAuth findByLogin(String login) {
         var userAuthValidate = userAuthRepository.findByLogin(login);
         return Optional.of(userAuthValidate).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
     }
+}
