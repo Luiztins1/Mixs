@@ -12,7 +12,7 @@ public class RestClientConfiguration {
     @Value("${app.discogs.base-url}")
     private String baseUrl;
 
-    @Value("${app.discogs.base-url}")
+    @Value("${app.discogs.token}")
     private String token;
 
     @Bean
