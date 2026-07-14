@@ -1,17 +1,16 @@
 # 🎶 Mixs
-
 ## API desenvolvida para construção de um agregador de músicas.
 
 # 🛠 Tecnologias e ferramentas
 * **Linguagem:** Java 21
-* **Framework Principal:** Spring Boot 3.3.4 (Spring Data JPA, Spring Web, Spring Validation, Spring DevTools com **Basic Auth**)
+* **Framework Principal:** Spring Boot 3.3.4 (Spring Data JPA, Spring Web, Spring Validation, Spring Security, Spring DevTools)
 * **Banco de dados:** PostgreSQL
-* **Ferramentas de Suporte:** Docker (para criar um imagem que possa rodar em qualquer máquina), Postman (um cliente para testar as requisições HTTP)
+* **Ferramentas de Suporte:** Docker (para criar uma imagem que possa rodar em qualquer máquina), Postman (um cliente para testar as requisições HTTP)
 * **API Externa:** Discogs API
 
 # 🏗 Arquitetura
-* **Padrão de Arquitetural:** MVC Pattern (Padrão organizacional de resposabilidades), SOLID SRP (Single Responsibility Principle) e DIP (Dependency Inversion Principle).
-* **Padrão de Transferência:** DTO Pattern (Padrão para transferência de dados), Mapper Pattern (Padrão utilizado para converter dados para entidades e entidades para dados; obs: feito manualmente)
+* **Padrão Arquitetural:** MVC Pattern (Padrão organizacional de responsabilidades), SOLID SRP (Single Responsibility Principle) e DIP (Dependency Inversion Principle).
+* **Padrão de Transferência:** DTO Pattern (Padrão para transferência de dados), Mapper Pattern (Padrão utilizado para converter dados para entidades e entidades para dados; obs: feito manualmente).
 
 # ⚙️ Configuração das Variáveis de Ambiente
 
@@ -31,11 +30,11 @@ O repositório disponibiliza um arquivo modelo chamado `application.example.yml`
 ```yaml
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/parking
+    url: jdbc:postgresql://localhost:5433/mixs
     username: ${DB_USERNAME:seu_usuario_aqui}
     password: ${DB_PASSWORD:sua_senha_aqui}
  ```
-4. Registre-se no **`Google Cloud`** e registre uma **`API`** e configure as **`credências`**. Copie-as e cole em **`client_id`** e **`client_secret.`**
+4. Registre-se no **`Google Cloud`** e registre uma **`API`** e configure as **`credencias`**. Copie-as e cole em **`client_id`** e **`client_secret.`**
 
 ```yaml
   security:
@@ -60,15 +59,14 @@ app:
 1. Na raiz do pacote de configurações, **duplique** o arquivo `docker-compose.example.yml`.
 2. Renomeie a cópia para **`docker-compose.yml`** (este nome é ignorado pelo Git e lido pelo Spring).
 
-* **Observação:** Abra o `docker-compose.yml` e substituia a porta para `5432:5432`, caso não tenha o PostgreSQL instalado localmente, caso contrário, permaneça o arquivo como está:
-
+* **Observação:** Caso você já tenha o PostgreSQL rodando localmente na porta padrão (5432), mantenha a porta externa mapeada como está no arquivo de exemplo (geralmente 5433:5432) para evitar conflitos. Caso contrário, mude para 5432:5432
 ```yaml
-  parking-system:
+  mixs:
     image: postgres:16
     volumes:
       - ./Postgres:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: parking
+      POSTGRES_DB: mixs
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
@@ -81,15 +79,13 @@ app:
 ```
 
 # 🔐 Acesso de Login
-O Spring Security Basic Auth está configurado por padrão com um usuário para acesso:
+O Spring Security com Basic Auth está configurado por padrão com um usuário inicial para acesso de teste:
 
-* `Login: manager`
-* `Password: manager123`
+Login: manager
 
-Caso tenha interesse de trocar as configurações do usuário padrão basta ir até (`src/main/config/DatabaseSeeder.java`) e mudar os seguintes campos:
-* `userAuth.setLogin("o login que deseja.")`
-*  `userAuth.setPassword("a senha que deseja.")`
-*  `userAuth.setRoles("a role que deseja.")`
+Password: manager123
+
+Caso tenha interesse em trocar as configurações do usuário padrão, basta alterar os campos dentro da classe DatabaseSeeder:
 
 ```java
 @Configuration

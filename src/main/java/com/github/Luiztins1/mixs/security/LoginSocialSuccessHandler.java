@@ -1,7 +1,9 @@
 package com.github.Luiztins1.mixs.security;
 
 import com.github.Luiztins1.mixs.model.entity.UserAuth;
+import com.github.Luiztins1.mixs.model.mapper.UserAuthMapper;
 import com.github.Luiztins1.mixs.service.UserAuthService;
+import com.github.Luiztins1.mixs.utils.RandomGenerateUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,17 +16,13 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Random;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
 public class LoginSocialSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
     private final UserAuthService userAuthService;
-    private final static String AlphaNumericString =
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            + "0123456789"
-            + "abcdefghijklmnopqrstuvxyz";
 
     @Override
     public void onAuthenticationSuccess(
@@ -43,7 +41,9 @@ public class LoginSocialSuccessHandler extends SavedRequestAwareAuthenticationSu
 
         //Procura usuário pelo email.
         UserAuth user = userAuthService.findByEmail(email);
-        
+
+        if(user == null) registerUser(email);
+
         //Defini o usuário e nossa authentication.
         CustomAuthentication customAuthentication = new CustomAuthentication(user);
 
@@ -53,4 +53,14 @@ public class LoginSocialSuccessHandler extends SavedRequestAwareAuthenticationSu
         super.onAuthenticationSuccess(request, response, customAuthentication);
     }
 
+    public void registerUser(String email){
+        UserAuth user;
+        user = new UserAuth();
+        user.setLogin(RandomGenerateUtil.generateLogin(8));
+        user.setEmail(email);
+        user.setPassword(RandomGenerateUtil.generatePassword(8));
+        user.setRoles(List.of("USER"));
+
+        userAuthService.registerUserAuth(UserAuthMapper.toDto(user));
+    }
 }

@@ -22,12 +22,12 @@ public class UserAuthService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public UserAuth registerUserAuth(UserAuthResponseDTO userAuthResponseDTO) {
+    public void registerUserAuth(UserAuthResponseDTO userAuthResponseDTO) {
         var user = UserAuthMapper.toEntity(userAuthResponseDTO);
         var password = user.getPassword();
         user.setPassword(passwordEncoder.encode(password));
 
-        return userAuthRepository.save(user);
+        userAuthRepository.save(user);
     }
 
     public List<UserAuth> findAll() {
