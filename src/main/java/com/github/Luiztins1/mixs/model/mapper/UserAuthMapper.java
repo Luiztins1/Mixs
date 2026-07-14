@@ -12,6 +12,7 @@ public class UserAuthMapper {
                 userAuth.getId(),
                 userAuth.getLogin(),
                 userAuth.getPassword(),
+                userAuth.getEmail(),
                 userAuth.getRoles()
         );
     }
@@ -24,6 +25,7 @@ public class UserAuthMapper {
         userAuth.setId(userAuthResponseDTO.id());
         userAuth.setLogin(userAuthResponseDTO.login());
         userAuth.setPassword(userAuthResponseDTO.password());
+        userAuth.setEmail(userAuthResponseDTO.email());
         userAuth.setRoles(userAuthResponseDTO.roles());
 
         return userAuth;

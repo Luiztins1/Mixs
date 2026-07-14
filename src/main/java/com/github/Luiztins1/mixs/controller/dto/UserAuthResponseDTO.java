@@ -1,5 +1,6 @@
 package com.github.Luiztins1.mixs.controller.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -14,6 +15,9 @@ public record UserAuthResponseDTO(
 
         @NotBlank(message = "A senha é obrigatória e não pode estar em branco.")
         String password,
+
+        @Email(message = "Email inválido.")
+        String email,
 
         @NotEmpty(message = "Adicione corretamente as roles.")
         List<String> roles) {

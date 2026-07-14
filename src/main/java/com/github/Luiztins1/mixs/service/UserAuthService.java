@@ -67,4 +67,9 @@ public class UserAuthService {
         return Optional.of(userAuthValidate)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
     }
+
+    public UserAuth findByEmail(String email){
+        return userAuthRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Email não encontrado."));
+    }
 }
