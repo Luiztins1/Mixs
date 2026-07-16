@@ -19,7 +19,7 @@ public class MusicController {
     private final MusicService musicService;
 
     @GetMapping("/{track}")
-    @PreAuthorize("hasAnyRole('MANAGER', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<List<String>> searchNameMusic(@PathVariable String track){
         var search = musicService.searchNameMusic(track);
         return ResponseEntity.ok(search);

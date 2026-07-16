@@ -18,9 +18,10 @@ public class DatabaseSeeder {
         return args ->{
             if(userAuthRepository.count() == 0){
                 var userAuth = new UserAuth();
-                userAuth.setLogin("manager");
-                userAuth.setPassword(passwordEncoder.encode("manager123"));
-                userAuth.setRoles(List.of("MANAGER"));
+                userAuth.setLogin("admin");
+                userAuth.setPassword(passwordEncoder.encode("admin123"));
+                userAuth.setEmail("admin@gmail.com");
+                userAuth.setRoles(List.of("ADMIN"));
 
                 userAuthRepository.save(userAuth);
             }

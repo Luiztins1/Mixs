@@ -10,12 +10,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SecurityService {
 
-    private final UserAuthService userAuthService;
-
     public UserAuth getUserAuth(){
         var authenticate = SecurityContextHolder.getContext().getAuthentication();
 
-        if(authenticate instanceof CustomAuthentication customAuth) return getUserAuth();
+        if(authenticate instanceof CustomAuthentication customAuth) return customAuth.getUserAuth();
         return null;
     }
 }

@@ -19,7 +19,7 @@ public class ArtistController {
     private final ArtistService artistService;
 
     @GetMapping("/{name}")
-    @PreAuthorize("hasAnyRole('MANAGER', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<List<String>> searchNameArtist(@PathVariable String name){
         var search = artistService.searchNameArtist(name);
         return ResponseEntity.ok(search);

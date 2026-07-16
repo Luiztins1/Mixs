@@ -42,18 +42,18 @@ public class LoginSocialSuccessHandler extends SavedRequestAwareAuthenticationSu
         //Procura usuário pelo email.
         UserAuth user = userAuthService.findByEmail(email);
 
-        if(user == null) registerUser(email);
+        if(user == null) user = registerUser(email);
 
         //Defini o usuário e nossa authentication.
-        CustomAuthentication customAuthentication = new CustomAuthentication(user);
+        CustomAuthentication customAuth= new CustomAuthentication(user);
 
         //Captura o contexto de security e define baseado em nossa authentication.
-        SecurityContextHolder.getContext().setAuthentication(customAuthentication);
+        SecurityContextHolder.getContext().setAuthentication(customAuth);
 
-        super.onAuthenticationSuccess(request, response, customAuthentication);
+        getRedirectStrategy().sendRedirect(request, response, "/api/v1/users");
     }
 
-    public void registerUser(String email){
+    public UserAuth registerUser(String email){
         UserAuth user;
         user = new UserAuth();
         user.setLogin(RandomGenerateUtil.generateLogin(8));
@@ -61,6 +61,7 @@ public class LoginSocialSuccessHandler extends SavedRequestAwareAuthenticationSu
         user.setPassword(RandomGenerateUtil.generatePassword(8));
         user.setRoles(List.of("USER"));
 
-        userAuthService.registerUserAuth(UserAuthMapper.toDto(user));
+        userAuthService.registerUserAuth(user);
+        return user;
     }
 }

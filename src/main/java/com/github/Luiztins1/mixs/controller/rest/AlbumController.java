@@ -19,7 +19,7 @@ public class AlbumController {
     private final AlbumService albumService;
 
     @GetMapping("/{name}")
-    @PreAuthorize("hasAnyRole('MANAGER', 'USER')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<List<String>> searchAlbum(@PathVariable String name){
         var search = albumService.searchNameAlbum(name);
 
