@@ -3,6 +3,7 @@ package com.github.Luiztins1.mixs.controller.rest;
 import com.github.Luiztins1.mixs.controller.dto.AlbumResponseDTO;
 import com.github.Luiztins1.mixs.model.mapper.AlbumMapper;
 import com.github.Luiztins1.mixs.service.AlbumService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,8 +29,9 @@ public class AlbumController {
     }
 
     @PostMapping
-    public ResponseEntity<AlbumResponseDTO> createdAlbum(@RequestBody AlbumResponseDTO albumResponseDTO){
-        var album = AlbumMapper.toEntity(albumResponseDTO);
+    @PreAuthorize("hasAnyHole('ADMIN', 'USER')")
+    public ResponseEntity<AlbumResponseDTO> registerAlbum(@RequestBody @Valid AlbumResponseDTO albumResponseDTO){
+        var album = albumService.registerAlbum(albumResponseDTO);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -41,6 +43,7 @@ public class AlbumController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyHole('ADMIN', 'USER')")
     public ResponseEntity<List<AlbumResponseDTO>> listAllAlbums(){
         List<AlbumResponseDTO> albumResponseDTOList =
                 albumService.listAllAlbums()

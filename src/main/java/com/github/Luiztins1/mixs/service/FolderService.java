@@ -2,6 +2,8 @@ package com.github.Luiztins1.mixs.service;
 
 import com.github.Luiztins1.mixs.controller.dto.FolderResponseDTO;
 import com.github.Luiztins1.mixs.controller.dto.UserResponseDTO;
+import com.github.Luiztins1.mixs.exceptions.DuplicateException;
+import com.github.Luiztins1.mixs.exceptions.NotFoundException;
 import com.github.Luiztins1.mixs.model.entity.Folder;
 import com.github.Luiztins1.mixs.model.entity.User;
 import com.github.Luiztins1.mixs.model.mapper.FolderMapper;
@@ -22,11 +24,10 @@ public class FolderService {
     private final FolderRepository folderRepository;
 
     @Transactional
-    public Folder registerUser(FolderResponseDTO folderResponseDTO){
+    public Folder registerFolder(FolderResponseDTO folderResponseDTO){
         var folder = FolderMapper.toEntity(folderResponseDTO);
-        var folderValidate = folderRepository.findById(folder.getId());
-
-        if(folderValidate.isPresent()) throw new RuntimeException("Pasta já cadastrado.");
+        var folderValidate = folderRepository.findByName(folder.getFolderName())
+                .orElseThrow(() -> new DuplicateException("Pasta já cadastrada."));
 
         return folderRepository.save(folder);
 
@@ -36,7 +37,7 @@ public class FolderService {
     public Optional<Folder> folderUpdate(Integer id, FolderResponseDTO folderResponseDTO){
         return folderRepository.findById(id)
                 .map(folder -> {
-                    if(folder.getId() == null) throw new RuntimeException("Pasta não encontrado.");
+                    if(folder.getId() == null) throw new NotFoundException("Pasta não encontrado.");
 
                     folder.setFolderName(folderResponseDTO.folderName());
                     return folderRepository.save(folder);
@@ -47,7 +48,7 @@ public class FolderService {
     public void deleteFolder(Integer id){
         var folderValidate = folderRepository.findById(id);
 
-        if(folderValidate.isEmpty()) throw new RuntimeException("Pasta não encontrado.");
+        if(folderValidate.isEmpty()) throw new NotFoundException("Pasta não encontrado.");
 
         folderRepository.deleteById(id);
     }
