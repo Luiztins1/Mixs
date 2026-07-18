@@ -50,7 +50,7 @@ public class LoginSocialSuccessHandler extends SavedRequestAwareAuthenticationSu
         //Captura o contexto de security e define baseado em nossa authentication.
         SecurityContextHolder.getContext().setAuthentication(customAuth);
 
-        getRedirectStrategy().sendRedirect(request, response, "/api/v1/users");
+        super.onAuthenticationSuccess(request, response, customAuth);
     }
 
     public UserAuth registerUser(String email){
