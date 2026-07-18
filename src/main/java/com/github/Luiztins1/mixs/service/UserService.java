@@ -52,7 +52,8 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public Optional<User> findByIdUser(Integer id){
-        return Optional.of(userRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuário não encontrado.")));
+    public Optional<User> findById(Integer id){
+        return Optional.of(userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado.")));
     }
 }
