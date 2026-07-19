@@ -1,10 +1,7 @@
 package com.github.Luiztins1.mixs.model.mapper;
 
 import com.github.Luiztins1.mixs.controller.dto.MusicResponseDTO;
-import com.github.Luiztins1.mixs.model.entity.Album;
 import com.github.Luiztins1.mixs.model.entity.Music;
-
-import java.util.List;
 
 public class MusicMapper {
 

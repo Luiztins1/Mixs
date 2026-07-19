@@ -1,26 +1,17 @@
 package com.github.Luiztins1.mixs.service;
 
-import com.github.Luiztins1.mixs.controller.dto.AlbumResponseDTO;
 import com.github.Luiztins1.mixs.controller.dto.DiscogsResultAlbumDTO;
 import com.github.Luiztins1.mixs.controller.dto.DiscogsSearchAlbumResponseDTO;
-import com.github.Luiztins1.mixs.exceptions.DuplicateException;
-import com.github.Luiztins1.mixs.exceptions.NotFoundException;
-import com.github.Luiztins1.mixs.model.entity.Album;
-import com.github.Luiztins1.mixs.model.mapper.AlbumMapper;
-import com.github.Luiztins1.mixs.repository.AlbumRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class AlbumService {
 
-    private final AlbumRepository albumRepository;
     private final RestClient restClient;
 
     public List<String> searchNameAlbum(String name){
@@ -42,19 +33,21 @@ public class AlbumService {
                 .toList();
     }
 
-    @Transactional
-    public Album registerAlbum(AlbumResponseDTO albumResponseDTO){
-        var album = AlbumMapper.toEntity(albumResponseDTO);
+   /* @Transactional
+    public List<String> registerInAlbum(String name){
+        var response = restClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/database/search")
+                        .queryParam("q", name)
+                        .queryParam("type", "release")
+                        .build())
+                .retrieve()
+                .body(DiscogsSearchAlbumResponseDTO.class);
 
-        if(album.getId() != null){
-            Optional<Album> albumValidate = albumRepository.findById(album.getId());
-            if(albumValidate.isPresent()) throw new DuplicateException("Esse album já está cadastrado.");
-        }
+        return response.results().
+                stream()
+                .map(AlbumResponseDTO::name)
 
-        return albumRepository.save(album);
-    }
+    }*/
 
-    public List<Album> listAllAlbums(){
-        return albumRepository.findAll();
-    }
 }

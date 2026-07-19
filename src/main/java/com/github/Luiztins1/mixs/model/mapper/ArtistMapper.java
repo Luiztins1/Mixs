@@ -1,7 +1,6 @@
 package com.github.Luiztins1.mixs.model.mapper;
 
 import com.github.Luiztins1.mixs.controller.dto.ArtistResponseDTO;
-import com.github.Luiztins1.mixs.model.entity.Album;
 import com.github.Luiztins1.mixs.model.entity.Artist;
 
 public class ArtistMapper {
