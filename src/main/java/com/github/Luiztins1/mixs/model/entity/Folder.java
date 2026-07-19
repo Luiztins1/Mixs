@@ -20,14 +20,9 @@ public class Folder extends Auditable implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToMany
-    @JoinTable(
-            name = "folder_album",
-            joinColumns = @JoinColumn(name = "folder_id"),
-            inverseJoinColumns = @JoinColumn(name = "album_id")
-    )
-    private Set<Album> album;
-
     @Column(name = "folder_name", nullable = false)
     private String folderName;
+
+    @OneToMany(mappedBy = "folder", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<FolderItem> folderItems;
 }
