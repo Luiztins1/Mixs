@@ -1,7 +1,10 @@
 package com.github.Luiztins1.mixs.model.mapper;
 
 import com.github.Luiztins1.mixs.controller.dto.MusicResponseDTO;
+import com.github.Luiztins1.mixs.model.entity.Album;
 import com.github.Luiztins1.mixs.model.entity.Music;
+
+import java.util.List;
 
 public class MusicMapper {
 
@@ -10,9 +13,9 @@ public class MusicMapper {
 
         return new MusicResponseDTO(
                 music.getId(),
-                music.getNameSong(),
-                music.getBand(),
-                music.getReleaseDate()
+                music.getTrack(),
+                music.getStyle(),
+                music.getAlbumList()
         );
     }
 
@@ -22,9 +25,9 @@ public class MusicMapper {
         Music music = new Music();
 
         music.setId(musicResponseDTO.id());
-        music.setNameSong(musicResponseDTO.nameSong());
-        music.setBand(musicResponseDTO.band());
-        music.setReleaseDate(musicResponseDTO.releaseDate());
+        music.setTrack(musicResponseDTO.track());
+        music.setStyle(musicResponseDTO.style());
+        music.setAlbumList(musicResponseDTO.albumList());
 
         return music;
     }

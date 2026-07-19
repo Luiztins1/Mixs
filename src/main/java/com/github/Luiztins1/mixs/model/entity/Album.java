@@ -27,7 +27,7 @@ public class Album extends Auditable implements Serializable {
     @Column(name = "year")
     private LocalDate year;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "album_artist",
             joinColumns = @JoinColumn(name = "album_id"),
@@ -36,7 +36,7 @@ public class Album extends Auditable implements Serializable {
     private Set<Artist> artist;
 
 
-   @ManyToMany(mappedBy = "albumList")
+   @ManyToMany(mappedBy = "albumList", fetch = FetchType.LAZY)
    private List<Music> musicList;
 
     @Column(name = "country", nullable = false)

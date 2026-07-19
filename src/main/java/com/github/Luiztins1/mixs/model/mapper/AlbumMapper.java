@@ -11,9 +11,11 @@ public class AlbumMapper {
         return new AlbumResponseDTO(
                 album.getId(),
                 album.getName(),
-                album.getReleaseDate(),
+                album.getYear(),
                 album.getArtist(),
+                album.getMusicList(),
                 album.getCountry(),
+                album.getGenre(),
                 album.getDescription()
         );
     }
@@ -25,8 +27,10 @@ public class AlbumMapper {
 
         album.setId(albumResponseDTO.id());
         album.setName(albumResponseDTO.name());
-        album.setReleaseDate(albumResponseDTO.releaseDate());
+        album.setYear(albumResponseDTO.year());
         album.setArtist(albumResponseDTO.artist());
+        album.setMusicList(albumResponseDTO.musicList());
+        album.setCountry(albumResponseDTO.country());
         album.setCountry(albumResponseDTO.country());
         album.setDescription(albumResponseDTO.description());
 

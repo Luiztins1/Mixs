@@ -1,5 +1,6 @@
 package com.github.Luiztins1.mixs.controller.dto;
 
+import com.github.Luiztins1.mixs.model.entity.Album;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -16,6 +17,6 @@ public record MusicResponseDTO(
         String style,
 
         @NotNull(message = "O album não pode ser vazio.")
-        List<Integer> albumList)
+        List<Album> albumList)
 {
 }
