@@ -7,5 +7,5 @@ import java.util.List;
 public record FolderResponseDTO(
         Integer id,
         String folderName,
-        List<FolderItem> folderItems) {
+        List<FolderItemResponseDTO> folderItems) {
 }

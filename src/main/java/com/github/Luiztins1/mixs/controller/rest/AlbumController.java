@@ -23,5 +23,4 @@ public class AlbumController {
 
         return ResponseEntity.ok(search);
     }
-
 }
