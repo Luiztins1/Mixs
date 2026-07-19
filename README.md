@@ -1,5 +1,5 @@
 # 🎶 Mixs
-## API desenvolvida para construção de um agregador de músicas.
+## API desenvolvida para construção de um agregador de albums.
 
 # 🛠 Tecnologias e ferramentas
 * **Linguagem:** Java 21
