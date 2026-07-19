@@ -24,7 +24,7 @@ public class Album extends Auditable implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "year")
+    @Column(name = "year", nullable = false)
     private LocalDate year;
 
     @ManyToMany(fetch = FetchType.LAZY)

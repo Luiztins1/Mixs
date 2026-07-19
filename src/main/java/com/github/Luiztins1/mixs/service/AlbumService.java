@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,10 +45,13 @@ public class AlbumService {
     @Transactional
     public Album registerAlbum(AlbumResponseDTO albumResponseDTO){
         var album = AlbumMapper.toEntity(albumResponseDTO);
-        var albumValidate = albumRepository.findByName(album.getName())
-                .orElseThrow(() -> new DuplicateException("Album já registrado."));
 
-        return albumRepository.save(albumValidate);
+        if(album.getId() != null){
+            Optional<Album> albumValidate = albumRepository.findById(album.getId());
+            if(albumValidate.isPresent()) throw new DuplicateException("Esse album já está cadastrado.");
+        }
+
+        return albumRepository.save(album);
     }
 
     public List<Album> listAllAlbums(){

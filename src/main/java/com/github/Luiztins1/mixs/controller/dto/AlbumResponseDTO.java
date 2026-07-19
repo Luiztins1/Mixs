@@ -18,10 +18,8 @@ public record AlbumResponseDTO(
         @NotNull(message = "A data não pode estar vazia.")
         LocalDate year,
 
-        @NotNull(message = "A lista de artista não pode estar vazia.")
         Set<Artist> artist,
 
-        @NotNull(message = "A lista de músicas não pode estar vazia.")
         List<Music> musicList,
 
         @NotBlank(message = "O pais não pode estar vazio.")

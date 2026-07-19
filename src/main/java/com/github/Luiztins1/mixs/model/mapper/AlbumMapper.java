@@ -31,7 +31,7 @@ public class AlbumMapper {
         album.setArtist(albumResponseDTO.artist());
         album.setMusicList(albumResponseDTO.musicList());
         album.setCountry(albumResponseDTO.country());
-        album.setCountry(albumResponseDTO.country());
+        album.setGenre(albumResponseDTO.genre());
         album.setDescription(albumResponseDTO.description());
 
         return album;

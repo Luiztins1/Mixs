@@ -26,8 +26,11 @@ public class FolderService {
     @Transactional
     public Folder registerFolder(FolderResponseDTO folderResponseDTO){
         var folder = FolderMapper.toEntity(folderResponseDTO);
-        var folderValidate = folderRepository.findByName(folder.getFolderName())
-                .orElseThrow(() -> new DuplicateException("Pasta já cadastrada."));
+
+        if(folder.getId() != null){
+            Optional<Folder> folderValidate = folderRepository.findById(folder.getId());
+            if(folderValidate.isPresent()) throw new DuplicateException("Pasta já criada.");
+        }
 
         return folderRepository.save(folder);
 
