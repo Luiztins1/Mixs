@@ -1,13 +1,17 @@
 package com.github.Luiztins1.mixs.service;
 
+import com.github.Luiztins1.mixs.controller.dto.AddAlbumInFolderResponseDTO;
 import com.github.Luiztins1.mixs.controller.dto.FolderResponseDTO;
 import com.github.Luiztins1.mixs.controller.dto.UserResponseDTO;
 import com.github.Luiztins1.mixs.exceptions.DuplicateException;
 import com.github.Luiztins1.mixs.exceptions.NotFoundException;
 import com.github.Luiztins1.mixs.model.entity.Folder;
+import com.github.Luiztins1.mixs.model.entity.FolderItem;
 import com.github.Luiztins1.mixs.model.entity.User;
+import com.github.Luiztins1.mixs.model.enums.ItemType;
 import com.github.Luiztins1.mixs.model.mapper.FolderMapper;
 import com.github.Luiztins1.mixs.model.mapper.UserMapper;
+import com.github.Luiztins1.mixs.repository.FolderItemRepository;
 import com.github.Luiztins1.mixs.repository.FolderRepository;
 import com.github.Luiztins1.mixs.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -22,6 +26,21 @@ import java.util.Optional;
 public class FolderService {
 
     private final FolderRepository folderRepository;
+    private final FolderItemRepository folderItemRepository;
+
+    @Transactional
+    public void addAlbumInFolder(Integer folderId, AddAlbumInFolderResponseDTO album){
+        Folder folder = folderRepository.findById(folderId)
+                .orElseThrow(() -> new NotFoundException("Pasta não encontrada."));
+
+        FolderItem folderItem = new FolderItem();
+        folderItem.setName(album.albumName());
+        folderItem.setExternalId(album.albumId().toString());
+        folderItem.setItemType(ItemType.ALBUM);
+        folderItem.setFolder(folder);
+
+        folderItemRepository.save(folderItem);
+    }
 
     @Transactional
     public Folder registerFolder(FolderResponseDTO folderResponseDTO){
@@ -34,6 +53,10 @@ public class FolderService {
 
         return folderRepository.save(folder);
 
+    }
+
+    public List<Folder> findAll(){
+        return folderRepository.findAll();
     }
 
     @Transactional
