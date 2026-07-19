@@ -11,7 +11,7 @@ public class FolderMapper {
         return new FolderResponseDTO(
                 folder.getId(),
                 folder.getFolderName(),
-                folder.getAlbum()
+                folder.getFolderItems()
         );
     }
 
@@ -21,7 +21,8 @@ public class FolderMapper {
         Folder folder = new Folder();
 
         folder.setId(folderResponseDTO.id());
-        folder.setAlbum(folderResponseDTO.album());
+        folder.setFolderName(folderResponseDTO.folderName());
+        folder.setFolderItems(folderResponseDTO.folderItems());
 
         return folder;
     }

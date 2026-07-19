@@ -25,12 +25,4 @@ public class Music extends Auditable implements Serializable {
 
     @Column(name = "style", nullable = false)
     private String style;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "album_music",
-            joinColumns = @JoinColumn(name = "music_id"),
-            inverseJoinColumns = @JoinColumn(name = "album_id")
-    )
-    public List<Album> albumList;
 }

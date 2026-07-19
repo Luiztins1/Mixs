@@ -14,7 +14,7 @@ public class AlbumService {
 
     private final RestClient restClient;
 
-    public List<String> searchNameAlbum(String name){
+    public List<DiscogsResultAlbumDTO> searchNameAlbum(String name){
 
         var response = restClient.get()
                     .uri(uriBuilder -> uriBuilder
@@ -25,12 +25,7 @@ public class AlbumService {
                     .retrieve()
                     .body(DiscogsSearchAlbumResponseDTO.class);
 
-        return response.results()
-                .stream()
-                .map(DiscogsResultAlbumDTO::title)
-                .distinct()
-                .sorted()
-                .toList();
+        return response.results();
     }
 
    /* @Transactional

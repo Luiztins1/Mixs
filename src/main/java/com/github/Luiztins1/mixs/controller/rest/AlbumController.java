@@ -1,5 +1,6 @@
 package com.github.Luiztins1.mixs.controller.rest;
 
+import com.github.Luiztins1.mixs.controller.dto.DiscogsResultAlbumDTO;
 import com.github.Luiztins1.mixs.service.AlbumService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,10 @@ public class AlbumController {
 
     @GetMapping("/{name}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-    public ResponseEntity<List<String>> searchAlbum(@PathVariable String name){
+    public ResponseEntity<List<DiscogsResultAlbumDTO>> searchAlbum(@PathVariable String name){
         var search = albumService.searchNameAlbum(name);
 
         return ResponseEntity.ok(search);
     }
-    
+
 }

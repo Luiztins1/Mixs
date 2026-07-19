@@ -24,7 +24,4 @@ public class Artist extends Auditable implements Serializable {
     @Column(name = "date_of_birth", nullable = false)
     private String dateOfBirth;
 
-    @ManyToOne
-    @JoinColumn(name = "album")
-    private Album album;
 }

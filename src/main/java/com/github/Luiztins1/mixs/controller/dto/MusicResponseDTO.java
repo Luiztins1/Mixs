@@ -12,9 +12,5 @@ public record MusicResponseDTO(
         String track,
 
         @NotBlank(message = "O estilo da música não pode estar vazia.")
-        String style,
-
-        @NotNull(message = "O album não pode ser vazio.")
-        List<Album> albumList)
-{
+        String style){
 }

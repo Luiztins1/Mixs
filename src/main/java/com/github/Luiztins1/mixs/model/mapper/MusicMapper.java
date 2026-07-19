@@ -11,8 +11,7 @@ public class MusicMapper {
         return new MusicResponseDTO(
                 music.getId(),
                 music.getTrack(),
-                music.getStyle(),
-                music.getAlbumList()
+                music.getStyle()
         );
     }
 
@@ -24,7 +23,6 @@ public class MusicMapper {
         music.setId(musicResponseDTO.id());
         music.setTrack(musicResponseDTO.track());
         music.setStyle(musicResponseDTO.style());
-        music.setAlbumList(musicResponseDTO.albumList());
 
         return music;
     }
