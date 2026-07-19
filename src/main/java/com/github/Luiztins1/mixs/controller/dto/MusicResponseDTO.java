@@ -4,16 +4,18 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public record MusicResponseDTO(
         Integer id,
 
         @NotBlank(message = "O nome da música não pode estar vazia.")
-        String nameSong,
+        String track,
 
-        @NotBlank(message = "O nome da banda não pode estar vazio.")
-        String band,
+        @NotBlank(message = "O estilo da música não pode estar vazia.")
+        String style,
 
-        @NotNull(message = "A data não pode estar vazia.")
-        LocalDate releaseDate) {
+        @NotNull(message = "O album não pode ser vazio.")
+        List<Integer> albumList)
+{
 }

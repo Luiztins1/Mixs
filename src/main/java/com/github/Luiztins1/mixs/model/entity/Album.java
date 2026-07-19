@@ -24,8 +24,8 @@ public class Album extends Auditable implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "release_date")
-    private LocalDate releaseDate;
+    @Column(name = "year")
+    private LocalDate year;
 
     @ManyToMany
     @JoinTable(
@@ -34,9 +34,16 @@ public class Album extends Auditable implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "artist_id")
     )
     private Set<Artist> artist;
-    
+
+
+   @ManyToMany(mappedBy = "albumList")
+   private List<Music> musicList;
+
     @Column(name = "country", nullable = false)
     private String country;
+
+    @Column(name = "genre", nullable = false)
+    private String genre;
 
     @Column(name = "description", nullable = false)
     private String description;

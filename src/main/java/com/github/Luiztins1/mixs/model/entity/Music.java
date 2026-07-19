@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "music")
@@ -19,12 +20,17 @@ public class Music extends Auditable implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name_song", nullable = false)
-    private String nameSong;
+    @Column(name = "track", nullable = false)
+    private String track;
 
-    @Column(name = "band", nullable = false)
-    private String band;
+    @Column(name = "style", nullable = false)
+    private String style;
 
-    @Column(name = "release_date", nullable = false)
-    private LocalDate releaseDate;
+    @ManyToMany
+    @JoinTable(
+            name = "album_music",
+            joinColumns = @JoinColumn(name = "music_id"),
+            inverseJoinColumns = @JoinColumn(name = "album_id")
+    )
+    public List<Album> albumList;
 }
