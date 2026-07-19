@@ -31,21 +31,4 @@ public class AlbumService {
                 .toList();
     }
 
-   /* @Transactional
-    public List<String> registerInAlbum(String name){
-        var response = restClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .path("/database/search")
-                        .queryParam("q", name)
-                        .queryParam("type", "release")
-                        .build())
-                .retrieve()
-                .body(DiscogsSearchAlbumResponseDTO.class);
-
-        return response.results().
-                stream()
-                .map(AlbumResponseDTO::name)
-
-    }*/
-
 }

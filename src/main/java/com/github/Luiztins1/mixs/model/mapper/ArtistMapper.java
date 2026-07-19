@@ -10,8 +10,7 @@ public class ArtistMapper {
 
         return new ArtistResponseDTO(
                 artist.getId(),
-                artist.getName(),
-                artist.getDateOfBirth()
+                artist.getName()
         );
     }
 
@@ -22,7 +21,7 @@ public class ArtistMapper {
 
         artist.setId(artistResponseDTO.id());
         artist.setName(artistResponseDTO.name());
-        artist.setDateOfBirth(artistResponseDTO.dateOfBirth());
+
         return artist;
     }
 }

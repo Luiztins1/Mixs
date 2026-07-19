@@ -21,7 +21,4 @@ public class Artist extends Auditable implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "date_of_birth", nullable = false)
-    private String dateOfBirth;
-
 }

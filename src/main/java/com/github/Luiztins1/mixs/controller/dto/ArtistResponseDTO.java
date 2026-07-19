@@ -7,8 +7,5 @@ public record ArtistResponseDTO(
         Integer id,
 
         @NotBlank(message = "O nome não pode estar vazio.")
-        String name,
-
-        @NotBlank(message = "A data de aniversário não pode estar vazio.")
-        String dateOfBirth) {
+        String name) {
 }
