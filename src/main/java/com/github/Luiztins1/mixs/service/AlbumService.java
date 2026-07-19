@@ -25,7 +25,10 @@ public class AlbumService {
                     .retrieve()
                     .body(DiscogsSearchAlbumResponseDTO.class);
 
-        return response.results();
+        return response.results()
+                .stream()
+                .distinct()
+                .toList();
     }
 
    /* @Transactional
